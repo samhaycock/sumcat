@@ -15,5 +15,5 @@ print(model)
 print(importance(model,type = 2))
 
 #predict Potability from water_test
-what <- predict(model, newdata=water_test[,-10])
+predict <- as.integer(predict(model, newdata=water_test[,-10]))-1
 
