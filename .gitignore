@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 #Data-Raw
 data-raw/*.csv
+
+#Mac-USER
+.DS_Store
