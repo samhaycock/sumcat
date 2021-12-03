@@ -5,6 +5,9 @@ water <- read.csv("data-raw/water_potability.csv")
 #   observations.
 water_clean <- na.omit(water)
 
+#Set Potability as a Factor
+water_clean$Potability <- factor(water_clean$Potability)
+
 #Create a Test-dataset to check predictive
 
 set.seed(1229)
