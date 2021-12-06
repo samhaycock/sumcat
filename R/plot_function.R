@@ -17,15 +17,10 @@ plot <- function(x){
 
   for(i in 1:length(x)){
     residual[i] <- x[[i]]$Fitted - x[[i]]$Prediction
-  }
-
-  h <- do.call(cbind, residual)
-  h.melt <- reshape::melt(h)
 
   #densityplot
-  gglot2::ggplot(h.melt,aes(x=class_methods[[1]],
-                            fill=residual, col = residual))+
-    geom_density()+
-    facet_grid(residual~.)+
-    geom_rug()
+  gglot2::ggplot(residual,aes(x=residual[[i]], col = class(x[[i]])))+
+    ggplot2::geom_point()
+    ggplot2::geom_density()
+  }
 }
