@@ -3,6 +3,7 @@
 #'Plotfunction which visualize residualplots from several methods for
 #'classification. Returns a different colored plot
 #'
+<<<<<<< HEAD
 #'@param x a List of Lists, which are summaries of each method for
 #'   classification
 #' @param y A null argument as the information will be pulled from the x
@@ -15,14 +16,36 @@ plot.sumcat <- function(x, y, ...){
   class_methods[[1]] <- MASS::lda(formula, data = train)
   class_methods[[2]] <- randomForest::randomForest(formula, data = train)
   class_methods[[3]] <- glm(formula, data = train)
+=======
+#'@param x Variable with is dependent from the other variables:
+#'  "Variable name ~."
+#'@param train A dataset, which is used to train the models of several
+#'classification methods
+#'@param test A dataset, which is used to test the models in order to
+#'create predictions
+#'
+
+plot.sumcat <- function(x,train,test){
+  class_methods <- vector("list", 3)
+
+  class_methods[[1]] <- MASS::lda(x, data = train)
+  class_methods[[2]] <- randomForest::randomForest(x, data = train)
+  class_methods[[3]] <- glm(x, data = train)
+>>>>>>> 11ec6b4a1c974791db6280162334179d9ab33aed
 
   predictions <- vector("list", length(class_methods))
   residual <- vector("list", length(class_methods))
 
   for (i in 1:length(class_methods)) {
 
+<<<<<<< HEAD
     predictions[[i]] <- predict(class_methods[[i]], test[-test$response])
     residual[[i]] <- class_methods[[i]] - predictions[[i]]
+=======
+    predictions[[i]] <- predict(class_methods[[i]],
+                                           newdata = test[,-10])
+    residual[[i]] <- as.numeric(test[,10]) - as.numeric(predictions[[i]][[class]])
+>>>>>>> 11ec6b4a1c974791db6280162334179d9ab33aed
   }
 
   h <- do.call(cbind, residual)
