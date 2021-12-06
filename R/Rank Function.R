@@ -13,6 +13,8 @@
 
 rank.sumcat <- function(formula, train, test, response) {
 
+
+
   class_methods <- vector("list", 3)
 
   class_methods[[1]] <- MASS::lda(formula, data = train)
