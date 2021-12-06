@@ -9,7 +9,13 @@
 
 rank.sumcat <- function(object) {
 
+<<<<<<< HEAD
   num_methods <- 4
+=======
+
+
+  class_methods <- vector("list", 3)
+>>>>>>> 0bef8b98a372a2aec750f61d9b96c7ff87ca3221
 
   confusion <- vector("list", num_methods)
 
