@@ -13,11 +13,13 @@
 
 rank <- function(formula, train, test, response) {
 
-  class_methods <- vector("list", 3)
+  class_methods <- vector("list", 4)
 
   class_methods[[1]] <- MASS::lda(formula, data = train)
   class_methods[[2]] <- randomForest::randomForest(formula, data = train)
   class_methods[[3]] <- glm(formula, data = train)
+  class_methods[[4]] <- EZtune::eztune(train[-train$response],
+                                       train$response, method = "svm")
 
   predictions <- vector("list", length(class_methods))
 
