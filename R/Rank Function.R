@@ -11,7 +11,7 @@
 #' variable we are trying to predict.
 #' @export
 
-rank <- function(formula, train, test, response) {
+rank.sumcat <- function(formula, train, test, response) {
 
   class_methods <- vector("list", 3)
 
