@@ -4,38 +4,36 @@
 #' Returns a matrix of methods and ranked accuracies, with higher accuracies
 #' listed first.
 #'
-#' @param formula The formula that the user wants to use for prediction.
-#' @param train The training dataset used for prediction.
-#' @param test The test dataset used for prediction.
-#' @param response The response variable from the the test dataset. This is the
-#' variable we are trying to predict.
+#' @param object
 #' @export
 
-rank.sumcat <- function(formula, train, test, response) {
+rank.sumcat <- function(object) {
 
+<<<<<<< HEAD
+  num_methods <- 4
+=======
 
 
   class_methods <- vector("list", 3)
+>>>>>>> 0bef8b98a372a2aec750f61d9b96c7ff87ca3221
 
-  class_methods[[1]] <- MASS::lda(formula, data = train)
-  class_methods[[2]] <- randomForest::randomForest(formula, data = train)
-  class_methods[[3]] <- glm(formula, data = train)
+  confusion <- vector("list", num_methods)
 
-  predictions <- vector("list", length(class_methods))
+  accuracy <- matrix(NA, nrow = num_methods, ncol = 2)
 
-  confusion <- vector("list", length(class_methods))
+  for (i in 1:num_methods) {
 
-  accuracy <- matrix(NA, nrow = length(class_methods), 2)
+    confusion[[i]] <- table(object[[i]]$Fitted, object[[i]]$Predictions)
 
-  for (i in 1:length(class_methods)) {
-
-    predictions[[i]] <- predict(class_methods[[i]], test[-test$response])
-    confusion[[i]] <- table(test$response, predictions[[i]]$class)
-    accuracy[i, 1] <- class(class_methods[[i]])
     accuracy[i, 2] <- (sum(diag(confusion[[i]])) / sum(confusion[[i]])) * 100
 
   }
 
+  rownames(accuracy) <- c("Logistic Regression", "Random Forest",
+                          "Support Vector Machines",
+                          "Linear Discriminant Analysis")
+  colnames(accuracy) <- c("Classification Method", "Accuracy Percentage")
   sort(accuracy)
 
 }
+
