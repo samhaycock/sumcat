@@ -4,18 +4,12 @@
 #' Returns a matrix of methods and ranked accuracies, with higher accuracies
 #' listed first.
 #'
-#' @param object
+#' @param object An object passed from the "model_cat" function.
 #' @export
 
 rank.sumcat <- function(object) {
 
-<<<<<<< HEAD
-  num_methods <- 4
-=======
-
-
-  class_methods <- vector("list", 3)
->>>>>>> 0bef8b98a372a2aec750f61d9b96c7ff87ca3221
+  num_methods <- length(object)
 
   confusion <- vector("list", num_methods)
 
@@ -23,17 +17,20 @@ rank.sumcat <- function(object) {
 
   for (i in 1:num_methods) {
 
-    confusion[[i]] <- table(object[[i]]$Fitted, object[[i]]$Predictions)
+    confusion[[i]] <- table(object[[i]]$Fitted, object[[i]]$Prediction)
+
 
     accuracy[i, 2] <- (sum(diag(confusion[[i]])) / sum(confusion[[i]])) * 100
 
   }
 
-  rownames(accuracy) <- c("Logistic Regression", "Random Forest",
-                          "Support Vector Machines",
-                          "Linear Discriminant Analysis")
-  colnames(accuracy) <- c("Classification Method", "Accuracy Percentage")
-  sort(accuracy)
+  accuracy[1, 1] <- "Logistic Regression"
+  accuracy[2, 1] <- "Random Forest"
+  accuracy[3, 1] <- "Support Vector Machine"
+  accuracy[4, 1] <- "Linear Discriminant Analysis"
+
+  colnames(accuracy) <- c("Classification Method", "Accuracy (%)")
+  as.data.frame(accuracy)
 
 }
 
