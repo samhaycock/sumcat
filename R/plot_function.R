@@ -3,15 +3,23 @@
 #'Plotfunction which visualize residualplots from several methods for
 #'classification. Returns a different colored plot
 #'
-#'@param x Variable with is dependent from the other variables:
-#'  "Variable name ~."
-#'@param train A dataset, which is used to train the models of several
-#'classification methods
-#'@param test A dataset, which is used to test the models in order to
-#'create predictions
+#'@param x A sumcat list object which is the summary of classifications
+#'  made by four different Regressionmethods. Can be reproduced with the
+#'  model_cat() function
+#'@return A density plot made with functions provided by the ggplot2 package
+#'@description Takes the length of the argument to create a list object. Each
+#'  item of the list object is the Substraction of the fitted values, obtained
+#'  from x with the prediction values, short the residuals. The residuals are
+#'  than plotted as a densitycurve over another, using the geom_density
+#'  function from the ggplot2 package. Which classification model is
+#'  represented by which colour is presented in a legend.
+#'
+#'@example
+#' x <- model_cat(Potability~., water_potability)
+#' plot(x)
 #'
 #'@export
-plot <- function(x){
+plot.sumcat <- function(x){
 
   residual <- vector("list", length(x))
 
@@ -20,9 +28,10 @@ plot <- function(x){
   }
     #densityplot
     ggplot2::ggplot()+
-         ggplot2::geom_density(aes(x = residual[[1]]))+
-         ggplot2::geom_density(aes(x = residual[[2]]))+
-         ggplot2::geom_density(aes(x = residual[[3]]))+
-         ggplot2::geom_density(aes(x = residual[[4]]))
+      ggplot2::theme_classic()+
+         ggplot2::geom_density(ggplot2::aes(x = residual[[1]]), col = "purple")+
+         ggplot2::geom_density(ggplot2::aes(x = residual[[2]]), col = "blue")+
+         ggplot2::geom_density(ggplot2::aes(x = residual[[3]]), col = "green")+
+         ggplot2::geom_density(ggplot2::aes(x = residual[[4]]), col= "yellow")
 }
-plot(model_cat(Potability~., water_potability))
+

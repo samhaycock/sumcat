@@ -4,7 +4,7 @@
 \alias{model_cat}
 \title{Modeling function for Ensemble of Categorical Analysis}
 \usage{
-model_cat(formula, data)
+model_cat(formula, data, test_data = water_test)
 }
 \arguments{
 \item{formula}{A formula statement}
