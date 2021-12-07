@@ -1,13 +1,13 @@
-#' rank_methods
+#' rank
 #'
 #' Ranks several methods of classification based on their level of accuracy.
 #' Returns a matrix of methods and ranked accuracies, with higher accuracies
-#' listed first. MUST run "model_cat" function prior to "rank_methods".
+#' listed first.
 #'
 #' @param object An object passed from the "model_cat" function.
 #' @export
 
-rank_methods <- function(object) {
+rank.sumcat <- function(object) {
 
   num_methods <- length(object)
 
