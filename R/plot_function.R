@@ -16,11 +16,13 @@ plot <- function(x){
   residual <- vector("list", length(x))
 
   for(i in 1:length(x)){
-    residual[i] <- x[[i]]$Fitted - x[[i]]$Prediction
-
-  #densityplot
-  gglot2::ggplot(residual,aes(x=residual[[i]], col = class(x[[i]])))+
-    ggplot2::geom_point()
-    ggplot2::geom_density()
+    residual[[i]] <- (as.numeric(x[[i]]$Fitted)-1) - x[[i]]$Prediction
   }
+    #densityplot
+    ggplot2::ggplot()+
+         ggplot2::geom_density(aes(x = residual[[1]]))+
+         ggplot2::geom_density(aes(x = residual[[2]]))+
+         ggplot2::geom_density(aes(x = residual[[3]]))+
+         ggplot2::geom_density(aes(x = residual[[4]]))
 }
+plot(model_cat(Potability~., water_potability))
