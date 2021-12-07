@@ -4,38 +4,34 @@
 #' Returns a matrix of methods and ranked accuracies, with higher accuracies
 #' listed first.
 #'
-#' @param formula The formula that the user wants to use for prediction.
-#' @param train The training dataset used for prediction.
-#' @param test The test dataset used for prediction.
-#' @param response The response variable from the the test dataset. This is the
-#' variable we are trying to predict.
+#' @param object An object passed from the "model_cat" function.
 #' @export
 
-rank.sumcat <- function(formula, train, test, response) {
+rank.sumcat <- function(object) {
+
+  num_methods <- length(object)
+
+  confusion <- vector("list", num_methods)
+
+  accuracy <- matrix(NA, nrow = num_methods, ncol = 2)
+
+  for (i in 1:num_methods) {
+
+    confusion[[i]] <- table(object[[i]]$Fitted, object[[i]]$Prediction)
 
 
-
-  class_methods <- vector("list", 3)
-
-  class_methods[[1]] <- MASS::lda(formula, data = train)
-  class_methods[[2]] <- randomForest::randomForest(formula, data = train)
-  class_methods[[3]] <- glm(formula, data = train)
-
-  predictions <- vector("list", length(class_methods))
-
-  confusion <- vector("list", length(class_methods))
-
-  accuracy <- matrix(NA, nrow = length(class_methods), 2)
-
-  for (i in 1:length(class_methods)) {
-
-    predictions[[i]] <- predict(class_methods[[i]], test[-test$response])
-    confusion[[i]] <- table(test$response, predictions[[i]]$class)
-    accuracy[i, 1] <- class(class_methods[[i]])
-    accuracy[i, 2] <- (sum(diag(confusion[[i]])) / sum(confusion[[i]])) * 100
+    accuracy[i, 2] <- round((sum(diag(confusion[[i]])) / sum(confusion[[i]])),
+                            digits = 6) * 100
 
   }
 
-  sort(accuracy)
+  accuracy[1, 1] <- "Logistic Regression"
+  accuracy[2, 1] <- "Random Forest"
+  accuracy[3, 1] <- "Support Vector Machine"
+  accuracy[4, 1] <- "Linear Discriminant Analysis"
+
+  colnames(accuracy) <- c("Classification Method", "Accuracy (%)")
+  accuracy <- as.data.frame(accuracy)
+  accuracy[order(accuracy$`Accuracy (%)`, decreasing = TRUE), ]
 
 }

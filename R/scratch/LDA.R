@@ -12,3 +12,4 @@ actual <- water_test[, 10]
 predicted <- as.integer(predicted_potability$class) - 1
 
 LDA_residuals <- actual - predicted
+
