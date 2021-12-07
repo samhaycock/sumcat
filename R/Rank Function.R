@@ -35,6 +35,3 @@ rank.sumcat <- function(object) {
   accuracy[order(accuracy$`Accuracy (%)`, decreasing = TRUE), ]
 
 }
-
-obj <- model_cat(Potability ~ ., water_potability, water_test)
-rank.sumcat(obj)
