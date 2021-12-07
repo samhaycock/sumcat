@@ -13,7 +13,7 @@ model_cat <- function(formula, data, test_data = water_test){
   x <- model_frame[, 2:ncol(model_frame)]
 
   test_model_frame <- model.frame(formula, data = test_data)
-  fitted.predict <- test_model_frame[, 1]
+  fitted.predict <- as.integer(test_model_frame[, 1]) - 1
 
   log_model <- glm(formula, data = data, family = "binomial")
   log_pred <- predict(log_model, newdata = test_data, type = "response")
