@@ -20,7 +20,8 @@ rank.sumcat <- function(object) {
     confusion[[i]] <- table(object[[i]]$Fitted, object[[i]]$Prediction)
 
 
-    accuracy[i, 2] <- (sum(diag(confusion[[i]])) / sum(confusion[[i]])) * 100
+    accuracy[i, 2] <- round((sum(diag(confusion[[i]])) / sum(confusion[[i]])),
+                            digits = 6) * 100
 
   }
 
@@ -30,7 +31,10 @@ rank.sumcat <- function(object) {
   accuracy[4, 1] <- "Linear Discriminant Analysis"
 
   colnames(accuracy) <- c("Classification Method", "Accuracy (%)")
-  as.data.frame(accuracy)
+  accuracy <- as.data.frame(accuracy)
+  accuracy[order(accuracy$`Accuracy (%)`, decreasing = TRUE), ]
 
 }
 
+obj <- model_cat(Potability ~ ., water_potability, water_test)
+rank.sumcat(obj)
