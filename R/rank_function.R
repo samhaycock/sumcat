@@ -11,11 +11,7 @@
 #' ranking(object)
 #' @export
 
-<<<<<<< HEAD:R/Rank Function.R
 rank_methods <- function(object) {
-=======
-ranking <- function(object) {
->>>>>>> bf50d5e3ce7535258f16da71998e11b30e5fde65:R/rank_function.R
 
   num_methods <- length(object)
 
