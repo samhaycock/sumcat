@@ -4,10 +4,26 @@
 #'   for each type: Random Forest, Logistic Regression, LDA, SVM.
 #' @param formula A formula statement
 #' @param data A categorical data set specified by the user
+#' @param test_data If user has already made a test data-set they may input it
+#'   to allow the plot function to work, otherwise a test and training set will
+#'   be created.
 #'
 #' @return A list object that contains the ensemble of models
+#'
+#' @examples
+#' #Create a sumcat object
+#' sumcat <- model_cat(Potability ~ ., water_potability, water_test)
+#' sumcat
+#'
 #' @export
-model_cat <- function(formula, data, test_data = water_test){
+model_cat <- function(formula, data, test_data = NULL){
+  if (is.null(test_data)){
+    n <- nrow(water_clean)
+    training.index <- sample(1:n, size = 0.8 * n)
+    data <- data[training.index, ]
+    test_data <- data[-training.index, ]
+  }
+
   model_frame <- model.frame(formula, data = data)
   y <- model_frame[, 1]
   x <- model_frame[, 2:ncol(model_frame)]

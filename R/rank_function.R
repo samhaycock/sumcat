@@ -5,9 +5,13 @@
 #' listed first.
 #'
 #' @param object An object passed from the "model_cat" function.
+#'
+#' @examples
+#' object <- model_cat(Potability ~ ., water_potability, water_test)
+#' ranking(object)
 #' @export
 
-rank.sumcat <- function(object) {
+ranking <- function(object) {
 
   num_methods <- length(object)
 

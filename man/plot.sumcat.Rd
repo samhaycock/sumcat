@@ -4,19 +4,30 @@
 \alias{plot.sumcat}
 \title{Plot}
 \usage{
-\method{plot}{sumcat}(x)
+\method{plot}{sumcat}(x, y, ...)
 }
 \arguments{
-\item{x}{Variable with is dependent from the other variables:
-"Variable name ~."}
+\item{x}{A sumcat list object which is the summary of classifications
+made by four different Classification methods. Can be reproduced with the
+model_cat() function.}
 
-\item{train}{A dataset, which is used to train the models of several
-classification methods}
-
-\item{test}{A dataset, which is used to test the models in order to
-create predictions}
+\item{y}{A null value in this case as all the information is stored inside
+the x object which is a sumcat object.}
+}
+\value{
+A density plot made with functions provided by the ggplot2 package
 }
 \description{
-Plotfunction which visualize residualplots from several methods for
-classification. Returns a different colored plot
+Takes the fitted values(actual values) less the
+  predicted values creating the residuals. These are then plotted as a
+  density curve over one another, using the geom_density from ggplot2.
+}
+\details{
+Plot function which visualize residual plots from several methods for
+  classification. Returns a plot with each residual density plot colored.
+}
+\examples{
+ x <- model_cat(Potability~., water_potability)
+ plot(x)
+
 }

@@ -4,12 +4,16 @@
 \alias{model_cat}
 \title{Modeling function for Ensemble of Categorical Analysis}
 \usage{
-model_cat(formula, data, test_data = water_test)
+model_cat(formula, data, test_data = NULL)
 }
 \arguments{
 \item{formula}{A formula statement}
 
 \item{data}{A categorical data set specified by the user}
+
+\item{test_data}{If user has already made a test data-set they may input it
+to allow the plot function to work, otherwise a test and training set will
+be created.}
 }
 \value{
 A list object that contains the ensemble of models
@@ -17,4 +21,10 @@ A list object that contains the ensemble of models
 \description{
 Creates a 'sumcat' class object that when summary is called the models
   for each type: Random Forest, Logistic Regression, LDA, SVM.
+}
+\examples{
+#Create a sumcat object
+sumcat <- model_cat(Potability ~ ., water_potability, water_test)
+sumcat
+
 }

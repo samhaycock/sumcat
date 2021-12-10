@@ -1,14 +1,27 @@
 Package: sumcat
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Categorical Summary
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(person("Sam", "Haycock", role = c("aut", "cre"),
+                    email = "sam.haycock@usu.edu"),
+             person("Sydney", "Geisler", role = c("aut"),
+                    email = "sydney.geisler@usu.edu"),
+             person("Julia", "Keiter", role = c("aut"),
+                    email = "a02375135@usu.edu"))
+Author: Sam Haycock [aut, cre],
+  Sydney Geisler [aut],
+  Julia Keiter [aut]
+Maintainer: Sam Haycock <sam.haycock@usu.edu>
+Description: A package that is an ensemble for categorical analysis. That is 
+  there is one modeling function that takes in a formula, training data set, 
+  and a test data set. Which stores the four types of classification models:
+  Logistic Regression, Random Forest, Support Vector Machines, and Linear 
+  Dependence Analysis, in a single object. We have overwritten three functions:
+  summary, rank, and plot, which take in this object and return results for 
+  each.
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1), ggplot2, EZtune, MASS
 RoxygenNote: 7.1.2
