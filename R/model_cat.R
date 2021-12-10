@@ -15,7 +15,8 @@
 #' sumcat <- model_cat(Potability ~ ., water_potability, water_test)
 #' sumcat
 #'
-#' @import randomForest EZtune MASS
+#' @import EZtune MASS
+#' @importFrom randomForest randomForest
 #' @importFrom stats glm model.frame predict
 #' @export
 model_cat <- function(formula, data, test_data = NULL){

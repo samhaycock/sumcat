@@ -12,7 +12,6 @@
 #' @export
 summary.sumcat <- function(object, ...) {
   for (i in seq_len(length(object))) {
-    print("\n")
     print(object[[i]])
   }
 }
