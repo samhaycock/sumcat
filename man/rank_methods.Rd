@@ -16,5 +16,5 @@ smallest. MUST run "model_cat" function prior to "rank_methods".
 }
 \examples{
 object <- model_cat(Potability ~ ., water_potability, water_test)
-ranking(object)
+rank_methods(object)
 }

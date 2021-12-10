@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' object <- model_cat(Potability ~ ., water_potability, water_test)
-#' ranking(object)
+#' rank_methods(object)
 #' @export
 
 rank_methods <- function(object) {
