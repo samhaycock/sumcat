@@ -12,17 +12,14 @@
 #'
 #'@export
 plot <- function(x){
-
-  residual <- vector("list", length(x))
-
-  for(i in 1:length(x)){
-    residual[[i]] <- (as.numeric(x[[i]]$Fitted)-1) - x[[i]]$Prediction
-  }
-    #densityplot
-    ggplot2::ggplot()+
-         ggplot2::geom_density(aes(x = residual[[1]]))+
-         ggplot2::geom_density(aes(x = residual[[2]]))+
-         ggplot2::geom_density(aes(x = residual[[3]]))+
-         ggplot2::geom_density(aes(x = residual[[4]]))
+  ggplot() +
+    geom_density(aes(x = testing[[1]]$Fitted - testing[[1]]$Prediction),
+                 col = "red") +
+    geom_density(aes(x = testing[[2]]$Fitted - testing[[2]]$Prediction),
+                 col = "blue") +
+    geom_density(aes(x = testing[[3]]$Fitted - testing[[3]]$Prediction),
+                 col = "green") +
+    geom_density(aes(x = testing[[4]]$Fitted - testing[[4]]$Prediction),
+                 linetype = "dashed")
 }
-plot(model_cat(Potability~., water_potability))
+
