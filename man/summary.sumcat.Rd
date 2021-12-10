@@ -4,11 +4,13 @@
 \alias{summary.sumcat}
 \title{summary.sumcat}
 \usage{
-\method{summary}{sumcat}(sumcat)
+\method{summary}{sumcat}(object, ...)
 }
 \arguments{
-\item{sumcat}{This is a sumcat object which is a list of the different
+\item{object}{This is a sumcat object which is a list of the different
 classification models embedded inside.}
+
+\item{...}{Parameters that can be passed on to future functions.}
 }
 \description{
 Displays all the models one after the other, specifying the call that was

@@ -8,16 +8,17 @@
 #'   model_cat() function.
 #' @param y A null value in this case as all the information is stored inside
 #'   the x object which is a sumcat object.
+#' @param ... Parameters that can be passed on to later functions if needed.
 #' @return A density plot made with functions provided by the ggplot2 package
 #' @description Takes the fitted values(actual values) less the
 #'   predicted values creating the residuals. These are then plotted as a
 #'   density curve over one another, using the geom_density from ggplot2.
 #'
 #' @examples
-#'  x <- model_cat(Potability~., water_potability)
+#'  x <- model_cat(Potability~., water_potability, water_test)
 #'  plot(x)
-#'
-#'@export
+#' @import ggplot2
+#' @export
 plot.sumcat <- function(x, y, ...){
   ggplot() +
     geom_density(aes(x = x[[1]]$Fitted - x[[1]]$Prediction,

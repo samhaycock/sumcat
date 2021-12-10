@@ -15,10 +15,12 @@
 #' sumcat <- model_cat(Potability ~ ., water_potability, water_test)
 #' sumcat
 #'
+#' @import randomForest EZtune MASS
+#' @importFrom stats glm model.frame predict
 #' @export
 model_cat <- function(formula, data, test_data = NULL){
   if (is.null(test_data)){
-    n <- nrow(water_clean)
+    n <- nrow(test_data)
     training.index <- sample(1:n, size = 0.8 * n)
     data <- data[training.index, ]
     test_data <- data[-training.index, ]
@@ -37,17 +39,17 @@ model_cat <- function(formula, data, test_data = NULL){
   log_model$Prediction <- log_pred
   log_model$Fitted <- fitted.predict
 
-  rf_model <- randomForest::randomForest(formula, data = data)
+  rf_model <- randomForest(formula, data = data)
   rf_pred <- as.integer(predict(rf_model, newdata = test_data)) - 1
   rf_model$Prediction <- rf_pred
   rf_model$Fitted <- fitted.predict
 
-  svm_model <- EZtune::eztune(x, y, method = "svm")$model
+  svm_model <- eztune(x, y, method = "svm")$model
   svm_pred <- as.integer(predict(svm_model, newdata = test_data)) - 1
   svm_model$Prediction <- svm_pred
   svm_model$Fitted <- fitted.predict
 
-  lda_model <- MASS::lda(formula, data = data)
+  lda_model <- lda(formula, data = data)
   lda_pred <- as.integer(predict(lda_model, newdata = test_data)$class) - 1
   lda_model$Prediction <- lda_pred
   lda_model$Fitted <- fitted.predict

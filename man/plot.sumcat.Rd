@@ -13,6 +13,8 @@ model_cat() function.}
 
 \item{y}{A null value in this case as all the information is stored inside
 the x object which is a sumcat object.}
+
+\item{...}{Parameters that can be passed on to later functions if needed.}
 }
 \value{
 A density plot made with functions provided by the ggplot2 package
@@ -27,7 +29,6 @@ Plot function which visualize residual plots from several methods for
   classification. Returns a plot with each residual density plot colored.
 }
 \examples{
- x <- model_cat(Potability~., water_potability)
+ x <- model_cat(Potability~., water_potability, water_test)
  plot(x)
-
 }
