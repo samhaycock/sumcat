@@ -1,8 +1,8 @@
 #' rank_methods
 #'
-#' Ranks several methods of classification based on their level of accuracy.
-#' Returns a matrix of methods and ranked accuracies, with higher accuracies
-#' listed first. MUST run "model_cat" function prior to "rank_methods".
+#' Ranks several methods of classification based on their level of predictive
+#' accuracy. Returns a matrix of methods and ranked accuracies from largest to
+#' smallest. MUST run "model_cat" function prior to "rank_methods".
 #'
 #' @param object An object passed from the "model_cat" function.
 #' @export
