@@ -1,0 +1,62 @@
+---
+title: "sumcat_analysis"
+output: rmarkdown::pdf_document
+vignette: >
+  %\VignetteIndexEntry{sumcat_analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+\section*{Introduction}
+
+\section*{Functions}
+
+\section*{Analysis}
+We begin our analysis by first installing our package `sumcat` into your R session.
+```{r setup}
+library(sumcat)
+```
+
+We can then load the `water_potability` data set that we will be running our analysis on along with `water_test` data set.
+
+```{r}
+data("water_potability")
+data("water_test")
+```
+
+After loading these data sets into our R session, we need to set a seed to allow for reproducibility, allowing the user to follow along with this example. As well as, that we will be making the models for our analysis using the `model_cat()` function. We are interested in a starting point for this categorical analysis so our `formula` statement for the function will be our response variable `Potability` with all of our explanatory variables.
+
+```{r}
+set.seed(121521)
+model <- model_cat(Potability ~ ., water_potability, water_test)
+```
+
+We can view our model statements by using the package `summary` function to display these results.
+
+```{r}
+summary(model)
+
+```
+
+We can then see how the predictive power, by seeing how the accuracy compares among the four models: logistic regression, random forest, support vector machines, and linear discriminant analysis. This is done by calling the `rank` function which shows a dataframe of the models and accuracies.
+
+```{r}
+rank_methods(model)
+```
+
+
+
+
+
+
+
+
+
+
+

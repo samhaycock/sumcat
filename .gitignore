@@ -43,3 +43,4 @@ data-raw/*.csv
 
 #Mac-USER
 .DS_Store
+inst/doc

@@ -1,7 +1,8 @@
 #' Plot
 #'
-#' Plot function which visualize residual plots from several methods for
-#'   classification. Returns a plot with each residual density plot colored.
+#' Plot function which visualize residual density plots from several methods
+#'   for classification. Returns a plot with each residual density plot
+#'   colored.
 #'
 #' @param x A sumcat list object which is the summary of classifications
 #'   made by four different Classification methods. Can be reproduced with the

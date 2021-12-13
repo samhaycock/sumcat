@@ -25,8 +25,9 @@ Takes the fitted values(actual values) less the
   density curve over one another, using the geom_density from ggplot2.
 }
 \details{
-Plot function which visualize residual plots from several methods for
-  classification. Returns a plot with each residual density plot colored.
+Plot function which visualize residual density plots from several methods
+  for classification. Returns a plot with each residual density plot
+  colored.
 }
 \examples{
  x <- model_cat(Potability~., water_potability, water_test)
