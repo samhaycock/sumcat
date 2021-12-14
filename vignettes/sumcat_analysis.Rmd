@@ -1,5 +1,5 @@
 ---
-title: "sumcat_analysis"
+title: "sumcat Analysis"
 output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{sumcat_analysis}
@@ -14,23 +14,37 @@ knitr::opts_chunk$set(
 )
 ```
 \section*{Introduction}
+Often it is hard to determine what model equation is best for a given data set. We are proposing an ensemble of modeling function for classification of data.  This will allow users to input a formula and data into a function. This input we will then run four different modeling approaches. We are proposing on using these four methods: 
+
+* Logistic Regression
+* Linear Discriminant Analysis
+* Random Forest
+* Support Vector Machines (SVM)
+
+To help with the difficulty that comes with SVM we will be using the package ``EZtune'' which will help in simplifying the process (Lundell, 2017).
 
 \section*{Functions}
+After making a function that takes in the data and formula, we propose on making three other generic functions. These are:  
+
+* A plot function, which will  plot the distribution of the error terms standardized on the same scale to be able to compare all the models next to each other.
+* A summary function, with which we will decide as we see what the summary function returns for each model type and generalize them to be consistent with one another.
+* A ranking function, which will perform a prediction check on a test data set that will be provided by the user to see how our models due at predicting and the error associated with them. Then display to the user what we believe the best modeling equation is and display the order of them to the user. 
+
 
 \section*{Analysis}
 We begin our analysis by first installing our package `sumcat` into your R session.
-```{r setup}
+```{r setup, warning=FALSE, message=FALSE}
 library(sumcat)
 ```
 
-We can then load the `water_potability` data set that we will be running our analysis on along with `water_test` data set.
+We can then load the `water_potability` data set that we will be running our analysis on along with the `water_test` data set.
 
 ```{r}
 data("water_potability")
 data("water_test")
 ```
 
-After loading these data sets into our R session, we need to set a seed to allow for reproducibility, allowing the user to follow along with this example. As well as, that we will be making the models for our analysis using the `model_cat()` function. We are interested in a starting point for this categorical analysis so our `formula` statement for the function will be our response variable `Potability` with all of our explanatory variables.
+After loading these data sets into our R session, we need to set a seed to allow for reproducibility, allowing the user to follow along with this example. We will also be making the models for our analysis using the `model_cat()` function. We are interested in a starting point for this categorical analysis so our `formula` statement for the function will be our response variable `Potability` with all of our explanatory variables.
 
 ```{r}
 set.seed(121521)
@@ -44,15 +58,19 @@ summary(model)
 
 ```
 
-We can then see how the predictive power, by seeing how the accuracy compares among the four models: logistic regression, random forest, support vector machines, and linear discriminant analysis. This is done by calling the `rank` function which shows a dataframe of the models and accuracies.
+We can then see how the accuracy compares among the four models: logistic regression, random forest, support vector machines, and linear discriminant analysis. This is done by calling the `rank_methods` function which shows a dataframe of the models and accuracies.
 
 ```{r}
 rank_methods(model)
 ```
 
+To visualize how the residuals are distributed, we overwrote the plot function
+to show the residuals. 
+```{r, fig.align='center', fig.cap="Distribution of Residuals"}
+plot(model)
+```
 
-
-
+\section*{Conclusion}
 
 
 
