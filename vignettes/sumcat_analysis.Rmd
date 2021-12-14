@@ -26,10 +26,10 @@ To help with the difficulty that comes with SVM we will be using the package ``E
 \section*{Functions}
 After making a function that takes in the data and formula, we propose on making three other generic functions. These are:  
 
-* A plot function, which will  plot the distribution of the error terms standardized on the same scale to be able to compare all the models next to each other.
-* A summary function, with which we will decide as we see what the summary function returns for each model type and generalize them to be consistent with one another.
-* A ranking function, which will perform a prediction check on a test data set that will be provided by the user to see how our models due at predicting and the error associated with them. Then display to the user what we believe the best modeling equation is and display the order of them to the user. 
-
+* A `model_cat`, which will create a list object that contains the four models inside that were mentioned earlier. This will also perform the predictions and attach them to each individual model to be called on later to save computation time.
+* A `plot` function, which will  plot the distribution of the error terms standardized on the same scale to be able to compare all the models next to each other.
+* A `summary` function, with which we will decide as we see what the summary function returns for each model type and generalize them to be consistent with one another.
+* A `rank_methods` function, which will calculate how accurate each model is. Then display to the user what we believe the best modeling type in decreasing order.
 
 \section*{Analysis}
 We begin our analysis by first installing our package `sumcat` into your R session.
@@ -70,8 +70,47 @@ to show the residuals.
 plot(model)
 ```
 
-\section*{Conclusion}
 
+```{r}
+model_timing <- function(formula, data, test_data){
+  model_frame <- model.frame(formula, data = data)
+  y <- model_frame[, 1]
+  x <- model_frame[, 2:ncol(model_frame)]
+  
+  test_model_frame <- model.frame(formula, data = test_data)
+  fitted.predict <- as.integer(test_model_frame[, 1]) - 1
+  
+  microbenchmark::microbenchmark(log <- function(){
+  
+  log_model <- glm(formula, data = data, family = "binomial")
+  log_pred <- predict(log_model, newdata = test_data, type = "response")
+  log_pred <- ifelse(log_pred < .5, 0, 1)
+  log_model$Prediction <- log_pred
+  log_model$Fitted <- fitted.predict
+}, rf <- function() {
+  rf_model <- randomForest(formula, data = data)
+  rf_pred <- as.integer(predict(rf_model, newdata = test_data)) - 1
+  rf_model$Prediction <- rf_pred
+  rf_model$Fitted <- fitted.predict
+}, svm <- function() {
+  svm_model <- eztune(x, y, method = "svm")$model
+  svm_pred <- as.integer(predict(svm_model, newdata = test_data)) - 1
+  svm_model$Prediction <- svm_pred
+  svm_model$Fitted <- fitted.predict
+}, lda <- function() {
+  lda_model <- lda(formula, data = data)
+  lda_pred <- as.integer(predict(lda_model, newdata = test_data)$class) - 1
+  lda_model$Prediction <- lda_pred
+  lda_model$Fitted <- fitted.predict
+}, times = 1000)
+}
+mbm <- summary(model_timing(Potability ~. , water_potability, water_test))
+mbm$expr <- c("log_model", "rf_model", "svm_model", "lda_model" )
+mbm
+```
+
+\section*{Conclusion}
+In conclusion, we notice from our analysis at least with the dataset found, `water_potability`, was best predicted by Random Forest with Support Vector Machines came in a close second. When we look at the model timing of each we see that each fits it about the same average speed, with the Random Forest coming in second but having the greatest predictability.
 
 
 
