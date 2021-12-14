@@ -22,10 +22,12 @@ Description: A package that is an ensemble for categorical analysis. That is
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+Imports: EZtune
 Depends: 
-    R (>= 4.1), ggplot2, EZtune, MASS, randomForest
+    R (>= 4.1), ggplot2, MASS, randomForest
 RoxygenNote: 7.1.2
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    microbenchmark
 VignetteBuilder: knitr

@@ -14,17 +14,33 @@ knitr::opts_chunk$set(
 )
 ```
 \section*{Introduction}
-Often it is hard to determine what model equation is best for a given data set. We are proposing an ensemble of modeling function for classification of data.  This will allow users to input a formula and data into a function. This input we will then run four different modeling approaches. We are proposing on using these four methods: 
+Often it is hard to determine what model equation is best for a given data set. We are proposing an ensemble of modeling functions for classification of data.  This will allow users to input a formula and data into a function. From this input we will then run four different modeling approaches. 
 
 * Logistic Regression
 * Linear Discriminant Analysis
 * Random Forest
 * Support Vector Machines (SVM)
 
-To help with the difficulty that comes with SVM we will be using the package ``EZtune'' which will help in simplifying the process (Lundell, 2017).
+To help with the difficulty that comes with SVM we will be using the package ``EZtune'' which will help in simplifying the process as it will find the hyper-parameters needed (Lundell, 2017).
+
+\section*{Data}
+The dataset we will use is called ``Water Quality - Drinking water potability'' (Kadiwal, 2021). It is Open Source and available on the online platform \url{Kaggle.com}. It was uploaded by Aditya Kadiwal, a Senior Data Engineer from Pune, Maharashtra, India. The dataset consists of 10 measured metric values which are used to estimate the quality from 3276 different water bodies:
+
+* ph: pH of 1. water (0 to 14).
+* Hardness: Capacity of water to precipitate soap in mg/L.
+* Solids: Total dissolved solids in ppm.
+* Chloramines: Amount of Chloramines in ppm.
+* Sulfate: Amount of Sulfates dissolved in mg/L.
+* Conductivity: Electrical conductivity of water in $\mu s$/cm.
+* Organiccarbon: Amount of organic carbon in ppm.
+* Trihalomethanes: Amount of Trihalomethanes in $\mu g$/L.
+* Turbidity: Measure of light emiting property of water in NTU.
+* Potability: Indicates if water is safe for human consumption. Potable -1 and Not potable -0
+
+The data is synthetically generated and was last updated on April, 25 2021.
 
 \section*{Functions}
-After making a function that takes in the data and formula, we propose on making three other generic functions. These are:  
+The following functions are available to the user:  
 
 * A `model_cat`, which will create a list object that contains the four models inside that were mentioned earlier. This will also perform the predictions and attach them to each individual model to be called on later to save computation time.
 * A `plot` function, which will  plot the distribution of the error terms standardized on the same scale to be able to compare all the models next to each other.
@@ -63,10 +79,10 @@ We can then see how the accuracy compares among the four models: logistic regres
 ```{r}
 rank_methods(model)
 ```
-
+\newpage
 To visualize how the residuals are distributed, we overwrote the plot function
 to show the residuals. 
-```{r, fig.align='center', fig.cap="Distribution of Residuals"}
+```{r, fig.align='center', fig.cap="Distribution of Residuals", fig.pos="h"}
 plot(model)
 ```
 
@@ -110,9 +126,16 @@ mbm
 ```
 
 \section*{Conclusion}
-In conclusion, we notice from our analysis at least with the dataset found, `water_potability`, was best predicted by Random Forest with Support Vector Machines came in a close second. When we look at the model timing of each we see that each fits it about the same average speed, with the Random Forest coming in second but having the greatest predictability.
+In conclusion, we notice from our analysis at least with the data set found, `water_potability`, was best predicted by Random Forest with Support Vector Machines close behind, which is shown in Figure 1. When we look at the model timing of each we see that each fits it about the same average speed, with the Random Forest coming in second but having the greatest predictability. We would suggest looking at fine tuning the Random Forest Model as this predicted the best but did not cost so much computationally relatively to the other models.
 
 
+\section*{References}
+Kadiwal, A. (2021, April). Water quality: Drinking water. Retrieved from https://www.kaggle
+.com/adityakadiwal/water-potability (Accessed: 11-12-21) \vspace{.1in} \\
+Lundell, J. F. (2017). There has to be an easier way: a simple alternative for parameter tuning
+of supervised learning methods. JSM Proceedings, Statistical Computing Section. Alexandria,
+VA: American Statistical Association, 3028–3036.
+2
 
 
 
